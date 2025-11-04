@@ -1,9 +1,14 @@
 CC = gcc
-CFLAGS += -g
+CFLAGS += -g -Wall
 
-wordgen : wordgen.c
-	${CC} ${CFLAGS} -o $@ $^
+PROGRAMS = wordgen pager
 
-.PHONY: clean
+${PROGRAMS}: % : %.c
+	${CC} ${CFLAGS} -o $@ $<
+
+.PHONY: clean all
+
+all: ${PROGRAMS}
+
 clean:
-	@rm -rvf *.o
+	@rm -rvf ${PROGRAMS} *.o
