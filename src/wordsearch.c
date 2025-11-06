@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     char *dict_word = NULL;
     size_t dict_word_len = 0;
 
-    char *dict_arr[100000]; // make piping atomic to make life easier (holds BUFSIZ string pointers)
+    char *dict_arr[BUFSIZ]; // make piping atomic to make life easier (holds BUFSIZ string pointers)
 
     //open file for reading
     FILE* dictionary = fopen(argv[1], "r");
@@ -41,8 +41,7 @@ int main(int argc, char* argv[]) {
 
         // don't add the word if it was rejected
         if (!reject_flag) {
-            dict_arr[accept_count] = malloc(strlen(dict_word) + 1);
-            strcpy(dict_arr[accept_count], dict_word);
+            dict_arr[accept_count] = strdup(dict_word);
             accept_count++;
         }
         reject_flag = false;
@@ -73,7 +72,7 @@ int main(int argc, char* argv[]) {
                 break;
             }
             fprintf(stderr, "Failed to read line: %s. Latest word read: %s\n.", strerror(errno), word);
-                for (int i = 0; i < accept_count; i++) {
+            for (int i = 0; i < accept_count; i++) {
                 free(dict_arr[i]);
             }
             free(word);
