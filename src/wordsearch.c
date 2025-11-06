@@ -7,7 +7,6 @@ int main(int argc, char* argv[]) {
     }
     int accept_count = 0;
     int reject_count = 0;
-    int compare_index = 0;
 
     bool reject_flag = false;
     char *word = NULL; 
@@ -16,7 +15,7 @@ int main(int argc, char* argv[]) {
     char *dict_word = NULL;
     size_t dict_word_len = 0;
 
-    char *dict_arr[BUFSIZ]; // make piping atomic to make life easier (holds BUFSIZ string pointers)
+    char *dict_arr[1000000]; // make piping atomic to make life easier (holds BUFSIZ string pointers)
 
     //open file for reading
     FILE* dictionary = fopen(argv[1], "r");
