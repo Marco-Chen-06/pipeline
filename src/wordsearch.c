@@ -1,13 +1,23 @@
 #include "programs.h"
 
+int match_count = 0;
+
+// signal handler that prints the matched word count once SIGPIPE is received
+void sigpipe_handler(int sig)  { 
+    fprintf(stderr, "Matched %d words \n", match_count);
+    exit(sig);
+} 
+
 int main(int argc, char* argv[]) {
     if(argc != 2) {
         perror("No file to read provided");
         return 0;
     }
+
+    signal(SIGPIPE, sigpipe_handler);
+
     int accept_count = 0;
     int reject_count = 0;
-    int match_count = 0;
 
     bool reject_flag = false;
     char *word = NULL; 
