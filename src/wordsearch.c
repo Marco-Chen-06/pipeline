@@ -7,6 +7,7 @@ int main(int argc, char* argv[]) {
     }
     int accept_count = 0;
     int reject_count = 0;
+    int match_count = 0;
 
     bool reject_flag = false;
     char *word = NULL; 
@@ -15,7 +16,7 @@ int main(int argc, char* argv[]) {
     char *dict_word = NULL;
     size_t dict_word_len = 0;
 
-    char *dict_arr[600000]; // can store up to 600000 lines
+    char **dict_arr = malloc(800000 * sizeof(char*)); // can store up to 800000 lines
 
     //open file for reading
     FILE* dictionary = fopen(argv[1], "r");
@@ -69,21 +70,21 @@ int main(int argc, char* argv[]) {
         if ((read_length == -1)) {
             // don't print error if eof
             if (feof(stdin)) {
+                for (int i = 0; i < accept_count; i++) {
+                free(dict_arr[i]);
+                }
+                free(word);
+                free(dict_word);
                 break;
             }
             fprintf(stderr, "Failed to read line: %s. Latest word read: %s\n.", strerror(errno), word);
-            for (int i = 0; i < accept_count; i++) {
-                free(dict_arr[i]);
-            }
-            free(word);
-            free(dict_word);
-            break;
         }
 
 
         for (int i = 0; i < accept_count; i++) {
             if(strcmp(dict_arr[i], word) == 0) {
                 fprintf(stdout, "%s", word);
+                match_count++;
             }   
         }
 
@@ -93,4 +94,5 @@ int main(int argc, char* argv[]) {
         } */
         //resets reading offset to start of file
     }
+    fprintf(stderr, "Matched %d words \n", match_count);
 }
