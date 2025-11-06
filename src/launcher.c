@@ -97,7 +97,7 @@ int launcher(int wordcount) {
         if(WIFEXITED(status)) {
             printf("Child %d exited with %d\n", child_pid, WEXITSTATUS(status));
         } else if(WIFSIGNALED(status)) {
-            printf("Child %d exited with %d\n", child_pid, WTERMSIG(status));
+            printf("Child %d exited with signal %d\n", child_pid, WTERMSIG(status));
         }
     }
 

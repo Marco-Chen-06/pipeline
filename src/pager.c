@@ -1,9 +1,6 @@
 #include "programs.h"
 
 int main() {
- 
-    int count = 0;
-
     FILE* terminal_input = fopen("/dev/tty", "r+");
 
     char *terminal_command = NULL;
