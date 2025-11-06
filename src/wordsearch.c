@@ -25,6 +25,8 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
+    //-------------------TODO- implement something that prints to stderr and returns -1 if more than 8192 lines ------
+
     // loop through the dictionary and accept/reject words, then stuff words into dict_arr
     while((dict_word_len = getline(&dict_word, &dict_word_len, dictionary)) != -1) {
         // converts each dictionary word to uppercase
