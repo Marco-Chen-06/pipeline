@@ -37,5 +37,6 @@ void wordgen(int wordcount) {
         fprintf(stdout, "%s\n", word); //print the "word" in the file and then newline
         count++;
     }
+    fprintf(stderr, "Finished generating %d candidate words\n", count);
     return;
 }
