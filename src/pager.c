@@ -38,7 +38,7 @@ int main() {
             }
 
             if(strcmp(terminal_command, "q\n") == 0) {
-                fprintf(stdout, "*** Pager terminated by Q command ***");
+                fprintf(stdout, "*** Pager terminated by Q command ***\n");
                 free(terminal_command);
                 free(word);
                 fclose(terminal_input);

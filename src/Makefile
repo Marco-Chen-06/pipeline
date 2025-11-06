@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS += -g -Wall
 
-PROGRAMS = wordgen pager wordsearch
+PROGRAMS = wordgen pager wordsearch launcher 
 
 ${PROGRAMS}: % : %.c
 	${CC} ${CFLAGS} -o $@ $<

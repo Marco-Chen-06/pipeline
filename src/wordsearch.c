@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
     char *dict_word = NULL;
     size_t dict_word_len = 0;
 
-    char *dict_arr[1000000]; // make piping atomic to make life easier (holds BUFSIZ string pointers)
+    char *dict_arr[600000]; // can store up to 600000 lines
 
     //open file for reading
     FILE* dictionary = fopen(argv[1], "r");
@@ -23,8 +23,6 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "Failed to open file %s: %s.", argv[1], strerror(errno));
         return 0;
     }
-
-    //-------------------TODO- implement something that prints to stderr and returns -1 if more than 8192 lines ------
 
     // loop through the dictionary and accept/reject words, then stuff words into dict_arr
     while((dict_word_len = getline(&dict_word, &dict_word_len, dictionary)) != -1) {
@@ -54,6 +52,7 @@ int main(int argc, char* argv[]) {
     }
 
     fclose(dictionary);
+    fprintf(stderr, "Accepted %d words, rejected %d.\n", accept_count, reject_count);
 
     while(true) {
 
@@ -94,5 +93,4 @@ int main(int argc, char* argv[]) {
         } */
         //resets reading offset to start of file
     }
-    fprintf(stderr, "Accepted %d words, rejected %d.\n", accept_count, reject_count);
 }
